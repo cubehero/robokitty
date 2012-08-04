@@ -3,6 +3,9 @@ use <rounded.scad>
 
 body_h = 50;
 body_r = 22;
+leg_h = 35;
+leg_r = 10;
+joint_r = leg_r / 2;
 
 head_zoff = 1.1 * body_h;
 head_xy = 2 * 0.95 * body_r;
@@ -18,7 +21,6 @@ face_offz = 0.5 * head_z;
 
 // relative to face
 visor_offz = 0.05 * head_z;
-
 nose_offz = -0.1 * head_z;
 
 tol = 0.01;
@@ -77,11 +79,31 @@ module body() {
   translate([0, 0, body_h]) sphere(body_r);
 }
 
+module leg() {
+  intersection() {
+    union() {
+      // thigh
+      cylinder(leg_h - joint_r, r = joint_r);
+      translate([0, 0, leg_h - joint_r]) sphere(joint_r);
+
+      // paw
+      translate([joint_r * cos(-90), joint_r * sin(-90), 0]) sphere(joint_r);
+      translate([joint_r * cos(-45), joint_r * sin(-45), 0]) sphere(joint_r);
+      translate([joint_r * cos(0), joint_r * sin(0), 0]) sphere(joint_r);
+    }
+    cylinder(leg_h, r = leg_r);
+  }
+}
+
 module robokitty() {
   body();
   translate([0, 0, head_zoff]) {
     head();
   }
+  translate([body_r * cos(-60), body_r * sin(-60), 0])
+    leg();
+  translate([body_r * cos(-120), body_r * sin(-120), 0])
+    mirror([1, 0, 0]) leg();
 }
 
 robokitty();
