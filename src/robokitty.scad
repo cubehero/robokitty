@@ -27,8 +27,11 @@ module ear(r = 12) {
 module head() {
   translate([-head_xy / 2, -head_xy / 2 - 0.1 * head_xy, 0])
     rounded_cube([head_xy, head_xy, head_z], r = 4);
-    translate([ear_xoff, -ear_yoff, ear_zoff - tol]) ear(18);
-    translate([-ear_xoff, -ear_yoff, ear_zoff - tol]) ear(18);
+    translate([ear_xoff, -ear_yoff, ear_zoff - tol])
+      rotate([0, 30, 0]) ear(18);
+    translate([-ear_xoff, -ear_yoff, ear_zoff - tol])
+      rotate([0, -30, 0]) ear(18);
+    translate([0, face_offy, face_offz]) face();
 }
 
 module body() {
