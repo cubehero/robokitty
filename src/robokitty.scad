@@ -12,7 +12,9 @@ ear_zoff = head_z;
 ear_xoff = head_xy / 3;
 ear_yoff = head_xy / 4;
 
-face_off = -head_xy / 2;
+// relative to head
+face_offy = -head_xy / 2;
+face_offz = 0.65 * head_z;
 
 tol = 0.01;
 
@@ -21,6 +23,14 @@ module ear(r = 12) {
     translate([r / 2, 0, 0]) sphere(r);
     translate([-r / 2, 0, 0]) sphere(r);
     translate([-r, 0, -r]) cube(2 * r);
+  }
+}
+
+module face() {
+  // visor
+  hull() {
+    translate([0.3 * head_xy, 0, 0]) sphere(3);
+    translate([-0.3 * head_xy, 0, 0]) sphere(3);
   }
 }
 
