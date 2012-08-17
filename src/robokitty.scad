@@ -1,15 +1,16 @@
 use <parts.scad>
 use <rounded.scad>
 
-body_h = 50;
-body_r = 22;
+body_h = 40;
+body_r = 25;
 leg_h = 35;
 leg_r = 10;
 joint_r = leg_r / 2;
 
-head_zoff = 1.1 * body_h;
-head_xy = 2 * 0.95 * body_r;
-head_z = 2 * 0.8 * body_r;
+head_zoff = 1.2 * body_h;
+head_xy = 1.4 * body_r;
+head_z = 1.2 * body_r;
+head_shift = 0.4 * head_xy;
 
 ear_zoff = head_z;
 ear_xoff = head_xy / 3;
@@ -56,7 +57,6 @@ module face() {
 }
 
 module head() {
-  head_shift = 0.1 * head_xy;
 
   translate([0, -head_shift, 0]) {
     difference() {
